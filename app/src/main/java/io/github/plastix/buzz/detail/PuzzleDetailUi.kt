@@ -141,7 +141,7 @@ fun PuzzleBoard(
                 .padding(start = 16.dp, end = 16.dp, top = 4.dp, bottom = 16.dp)
         ) {
             ScoreBox(viewModel, state.currentRank, state.currentScore)
-            DiscoveredWordBox(words = state.discoveredWords)
+            DiscoveredWordBox(words = state.discoveredWords, state.wordBoxExpanded, viewModel)
             Spacer(Modifier.height(32.dp))
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -424,10 +424,9 @@ fun MaxWidthText(
 }
 
 @Composable
-fun DiscoveredWordBox(words: Set<String>, defaultExpanded: Boolean = false) {
-    var expanded by remember { mutableStateOf(defaultExpanded) }
+fun DiscoveredWordBox(words: Set<String>, expanded: Boolean, viewModel: PuzzleDetailViewModel) {
     OutlinedButton(
-        onClick = { expanded = !expanded },
+        onClick = viewModel::toggleWorldBox,
         colors = ButtonDefaults.outlinedButtonColors(
             contentColor = MaterialTheme.colors.onSurface,
         )
@@ -520,32 +519,32 @@ fun ChevronRow(
     }
 }
 
-@Preview
-@Composable
-fun PreviewDiscoveredWordBoxEmpty() {
-    DiscoveredWordBox(words = emptySet())
-}
-
-@Preview
-@Composable
-fun PreviewDiscoveredWordBoxFull() {
-    DiscoveredWordBox(
-        words = setOf(
-            "handle", "story", "rabbit", "cloud", "couch", "towel", "anger", "greeting"
-        )
-    )
-}
-
-@Preview
-@Composable
-fun PreviewDiscoveredWordBoxFullExpanded() {
-    DiscoveredWordBox(
-        words = setOf(
-            "handle", "story", "rabbit", "cloud"
-        ),
-        defaultExpanded = true
-    )
-}
+//@Preview
+//@Composable
+//fun PreviewDiscoveredWordBoxEmpty() {
+//    DiscoveredWordBox(words = emptySet(), false)
+//}
+//
+//@Preview
+//@Composable
+//fun PreviewDiscoveredWordBoxFull() {
+//    DiscoveredWordBox(
+//        words = setOf(
+//            "handle", "story", "rabbit", "cloud", "couch", "towel", "anger", "greeting"
+//        )
+//    )
+//}
+//
+//@Preview
+//@Composable
+//fun PreviewDiscoveredWordBoxFullExpanded() {
+//    DiscoveredWordBox(
+//        words = setOf(
+//            "handle", "story", "rabbit", "cloud"
+//        ),
+//        defaultExpanded = true
+//    )
+//}
 
 
 @Composable
